@@ -1,0 +1,35 @@
+<!-- public/src/components/dashboard.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Web3</title>
+    <link rel="stylesheet" href="/css/dashboard.css"> <!-- Link para o CSS -->
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Bem-vindo, <span id="username">Usuário</span>!</h1>
+        
+        <div class="panels">
+            <div class="scoreboard-panel">
+                <h2>Scoreboard dos Melhores Jogadores</h2>
+                <ul id="scoreboard">
+                    <!-- Lista de jogadores -->
+                </ul>
+            </div>
+            <div class="game-phases-panel">
+                <h2>Fases do Jogo</h2>
+                <button onclick="openGame('fase1')">Fase 1</button>
+                <button onclick="openGame('fase2')">Fase 2</button>
+                <button onclick="openGame('fase3')">Fase 3</button>
+                <button onclick="openGame('fase4')">Fase 4</button>
+
+                <!-- Adicione mais fases conforme necessário -->
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script> <!-- Link para o JavaScript -->
+</body>
+</html>

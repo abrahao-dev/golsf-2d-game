@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login - Jogo de Golf 2D</title>
+    <link rel="stylesheet" href="/css/login.css"> <!-- Link para o novo CSS -->
+</head>
+<body>
+    <div class="login-container">
+        <h1>Bem-vindo ao Jogo de Golf 2D</h1>
+        <form id="loginForm">
+            <label for="nickname">Nickname:</label>
+            <input type="text" id="nickname" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="footer">
+            <p>© 2024 Jogo de Golf. Todos os direitos reservados.</p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nickname = document.getElementById('nickname').value;
+            localStorage.setItem('nickname', nickname);
+            window.location.href = '/public/index.html'; // Redireciona para index.html
+        });
+    </script>
+</body>
+</html>
