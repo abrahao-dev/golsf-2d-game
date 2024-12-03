@@ -20,9 +20,14 @@
             
             <div class="ui-elements">
                 <div class="scoreboard-container">
-                    <div id="roundDisplay" class="round-display"></div>
+                    <div id="roundDisplay" class="round-display">Nível 1</div>
                     <div class="scoreboard">
-                        <p>Pontuação <span id="score"></span></p>
+                        <p>Pontuação <span id="score">0</span></p>
+                    </div>
+
+                    <div id="activeUsersContainer">
+                        <h2>Usuários Ativos</h2>
+                        <ul id="activeUsersList"></ul>
                     </div>
                 </div>
 
@@ -42,5 +47,27 @@
     </div>
     <script src="/js/main.js"></script>
     <script src="/public/js/main.js"></script> <!-- Parte Local -->
+    
+    <script>
+        async function fetchActiveUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/api/active-users');
+                const users = await response.json();
+                const activeUsersList = document.getElementById('activeUsersList');
+                activeUsersList.innerHTML = ''; // Limpa a lista antes de adicionar novos usuários
+
+                users.forEach(user => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${user.player_name}: Pontuação ${user.score}`;
+                    activeUsersList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Erro ao buscar usuários ativos:', error);
+            }
+        }
+
+        // Chama a função para buscar usuários ativos ao carregar a página
+        fetchActiveUsers();
+    </script>
 </body> 
 </html>

@@ -68,6 +68,19 @@ app.get('/api/scores', (req, res) => {
   });
 });
 
+// Endpoint para obter todos os usuários ativos
+app.get('/api/active-users', (req, res) => {
+  const query = 'SELECT player_name, score FROM scores ORDER BY score DESC';
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Erro ao buscar usuários ativos:', err);
+      res.status(500).json({ error: 'Erro no banco de dados' });
+      return;
+    }
+    res.status(200).json(results);
+  });
+});
+
 // Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
