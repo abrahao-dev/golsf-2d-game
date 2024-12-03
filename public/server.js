@@ -1,7 +1,11 @@
 const express = require('express');
 const mysql = require('mysql2');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Habilitar CORS
+app.use(cors());
 
 // Configure a conexão MySQL
 const connection = mysql.createConnection({
@@ -30,6 +34,20 @@ app.post('/api/save-score', (req, res) => {
   connection.query(query, [playerName, score], (err, results) => {
     if (err) {
       console.error('Erro ao salvar pontuação:', err);
+      res.status(500).json({ error: 'Erro no banco de dados' });
+      return;
+    }
+    res.status(201).json({ id: results.insertId, playerName, score });
+  });
+});
+
+// Endpoint para salvar o nickname do jogador
+app.post('/api/save-nickname', (req, res) => {
+  const { playerName, score } = req.body;
+  const query = 'INSERT INTO scores (player_name, score) VALUES (?, ?)';
+  connection.query(query, [playerName, score], (err, results) => {
+    if (err) {
+      console.error('Erro ao salvar nickname:', err);
       res.status(500).json({ error: 'Erro no banco de dados' });
       return;
     }

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Login - Jogo de Golf 2D</title>
+
+    <link rel="stylesheet" href="../../css/login.css"> <!-- Link para o novo CSS -->
     <link rel="stylesheet" href="/css/login.css"> <!-- Link para o novo CSS -->
 </head>
 <body>
@@ -19,11 +21,28 @@
         </div>
     </div>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const nickname = document.getElementById('nickname').value;
-            localStorage.setItem('nickname', nickname);
-            window.location.href = '/public/index.html'; // Redireciona para index.html
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            const nickname = document.getElementById('nickname').value; // Obtém o nickname
+            localStorage.setItem('nickname', nickname); // Armazena o nickname no localStorage
+
+            try {
+                const response = await fetch('http://localhost:3000/api/save-nickname', { // Altere para a URL correta
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ playerName: nickname, score: 0 }) // Envia o nickname e a pontuação inicial
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao salvar o nickname');
+                }
+
+                window.location.href = '/public/index.html'; // Redireciona para index.html após o login
+            } catch (error) {
+                console.error('Erro ao salvar o nickname:', error);
+            }
         });
     </script>
 </body>
