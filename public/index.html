@@ -53,13 +53,12 @@
         </footer>
     </div>
     <script src="/js/main.js"></script>
-    <script src="/public/js/main.js"></script>
 
     <script>
         // Verifica se o nickname está salvo no localStorage
         if (!localStorage.getItem('nickname')) {
             // Redireciona para a página de login se não estiver logado
-            window.location.href = '/public/src/components/login.html';
+            window.location.href = '/src/components/login.html';
         }
     </script>
     
